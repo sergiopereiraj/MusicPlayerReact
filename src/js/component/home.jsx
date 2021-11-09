@@ -6,20 +6,29 @@ import rigoImage from "../../img/rigo-baby.jpg";
 //create your first component
 const Home = () => {
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+		<>
+			<body>
+				<header>
+					<h1>
+						Winamp 60.60vs <i class="fas fa-music"></i>
+					</h1>
+				</header>
+				<ol>
+					<li>song 1</li>
+					<li>song 2</li>
+					<li>song 3</li>
+					<li>song 4</li>
+					<li>song 5</li>
+					<li>song 6</li>
+					<li>song 7</li>
+				</ol>
+				<footer>
+					<i class="fas fa-caret-square-left"></i>
+					<i class="fas fa-play"></i>
+					<i class="fas fa-caret-square-right"></i>
+				</footer>
+			</body>
+		</>
 	);
 };
 

@@ -1,13 +1,22 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
-/* 
-
-    You can write your own styles here...
+body{
+    background: pink;
     
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
+}
+header{
+    background: black;
+    display: flex;
+    justify-content: space-evenly;
+    color:pink;
+}
+footer{
+    background: black;
+    display: flex;
+    justify-content: space-evenly;
+    color:pink;
+    font-size: 60px;
+    }
+   ol, li{
+        border: 1px solid white
+    }
