@@ -1,31 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
+	const [sing, setSing] = useState([]);
+	useEffect(() => {
+		obtenerDatos();
+	}, []);
+
+	const obtenerDatos = async () => {
+		const data = await fetch("https://assets.breatheco.de/apis/sound/fx");
+		const cancion = await data.json();
+		setSing(cancion);
+	};
+
 	return (
 		<>
 			<body>
 				<header>
 					<h1>
-						Winamp 60.60vs <i class="fas fa-music"></i>
+						Winamp 60.60vs <i className="fas fa-music"></i>
 					</h1>
 				</header>
 				<ol>
-					<li>song 1</li>
-					<li>song 2</li>
-					<li>song 3</li>
-					<li>song 4</li>
-					<li>song 5</li>
-					<li>song 6</li>
-					<li>song 7</li>
+					{sing.map(item => (
+						<li key={item.id}>
+							{item.name} - {item.category}
+						</li>
+					))}
 				</ol>
-				<footer>
-					<i class="fas fa-caret-square-left"></i>
-					<i class="fas fa-play"></i>
-					<i class="fas fa-caret-square-right"></i>
+				<footer className="fixed-bottom">
+					<button id="previous">
+						<i className="fas fa-caret-square-left"></i>
+					</button>
+					<button id="play">
+						<i className="fas fa-play"></i>
+					</button>
+					<button id="pause">
+						<i className="fas fa-pause"></i>
+					</button>
+					<button>
+						<i className="fas fa-caret-square-right"></i>
+					</button>
 				</footer>
 			</body>
 		</>
