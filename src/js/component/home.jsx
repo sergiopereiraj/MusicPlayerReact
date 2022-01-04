@@ -50,28 +50,32 @@ const Home = () => {
 					</h1>
 				</header>
 				<div id="botones" className="container">
-					{song.map(item => (
-						<>
-							<li key={item.id} className="d-grid gap-2">
-								<button
-									type="button"
-									className="btn btn-warning p-2 bd-highlight"
-									onClick={e => {
-										reproducir(song.url);
-									}}>
-									{item.name} -
-								</button>
-								<audio
-									id="player"
-									src={
-										"https://assets.breatheco.de/apis/sound/" +
-										item.url
-									}
-									ref={audioRef}
-								/>
-							</li>
-						</>
-					))}
+					{song.length === 0 ? (
+						<h1>Cargando...</h1>
+					) : (
+						song.map(item => (
+							<>
+								<li key={item.id} className="d-grid gap-2">
+									<button
+										type="button"
+										className="btn btn-warning p-2 bd-highlight"
+										onClick={e => {
+											reproducir(song.url);
+										}}>
+										{item.name} -
+									</button>
+									<audio
+										id="player"
+										src={
+											"https://assets.breatheco.de/apis/sound/" +
+											item.url
+										}
+										ref={audioRef}
+									/>
+								</li>
+							</>
+						))
+					)}
 				</div>
 				<footer className="">
 					<button className="text-warning" id="previous">
