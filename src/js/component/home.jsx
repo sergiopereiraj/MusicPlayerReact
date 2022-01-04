@@ -12,9 +12,9 @@ const Home = () => {
 			"Content-Type": "application/json"
 		}
 	};
-
 	const [condicion, setCondicion] = useState(false);
 	const [song, setSong] = useState([]);
+	const [songMap, setSongMap] = useState({});
 
 	let audioRef = useRef();
 
@@ -35,16 +35,21 @@ const Home = () => {
 		}
 		return setCondicion(true);
 	};
+	const pausar = () => {
+		audioRef.current.pause();
+		setCondicion(false);
+	};
 
 	const obtenerDatos = async () => {
 		const data = await fetch(url, options);
 		const cancion = await data.json();
+
 		setSong(cancion);
 	};
 	return (
 		<>
 			<body>
-				<header>
+				<header className="sticky-top">
 					<h1>
 						Music Geeks <i className="fas fa-music"></i>
 					</h1>
@@ -60,7 +65,7 @@ const Home = () => {
 										type="button"
 										className="btn btn-warning p-2 bd-highlight"
 										onClick={e => {
-											reproducir(song.url);
+											reproducir(item.url);
 										}}>
 										{item.name} -
 									</button>
@@ -77,16 +82,22 @@ const Home = () => {
 						))
 					)}
 				</div>
-				<footer className="">
+				<footer className="fixed-bottom">
 					<button className="text-warning" id="previous">
 						<i className="fas fa-caret-square-left"></i>
 					</button>
-					<button className="text-warning" id="play">
-						<i className="fas fa-play"></i>
-					</button>
-					<button className="text-warning" id="pause">
-						<i className="fas fa-pause"></i>
-					</button>
+					{condicion ? (
+						<button
+							className="text-warning"
+							id="pause"
+							onClick={() => pausar()}>
+							<i className="fas fa-pause"></i>
+						</button>
+					) : (
+						<button className="text-warning" id="play">
+							<i className="fas fa-play"></i>
+						</button>
+					)}
 					<button className="text-warning">
 						<i className="fas fa-caret-square-right"></i>
 					</button>
