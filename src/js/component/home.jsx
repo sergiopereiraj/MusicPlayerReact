@@ -14,7 +14,9 @@ const Home = () => {
 	};
 	const [condicion, setCondicion] = useState(false);
 	const [song, setSong] = useState([]);
-	const [songMap, setSongMap] = useState({});
+	const [songMap, setSongMap] = useState([]);
+	const [playlist, setPlaylist] = useState(" ");
+	const [setId, setSetId] = useState(0);
 
 	let audioRef = useRef();
 
@@ -39,12 +41,28 @@ const Home = () => {
 		audioRef.current.pause();
 		setCondicion(false);
 	};
+	const next = (id, song) => {
+		console.log(id);
+		console.log(song);
+		reproducir(song.url);
+		setPlaylist(song.url);
+		setSetId(id + 1);
+	};
+	const prev = (id, song) => {
+		reproducir(song.url);
+		setPlaylist(song.url);
+		setSetId(id + -1);
+	};
 
 	const obtenerDatos = async () => {
 		const data = await fetch(url, options);
 		const cancion = await data.json();
-
 		setSong(cancion);
+		/* 	const objetoVacio = {};
+		data.map(cancion => {
+			objetoVacio[cancion.id] = cancion.url;
+		});
+		setSongMap(objetoVacio); */
 	};
 	return (
 		<>
@@ -56,7 +74,9 @@ const Home = () => {
 				</header>
 				<div id="botones" className="container">
 					{song.length === 0 ? (
-						<h1>Cargando...</h1>
+						<h1>
+							Cargando...<i className="fas fa-music"></i>
+						</h1>
 					) : (
 						song.map(item => (
 							<>
@@ -66,6 +86,8 @@ const Home = () => {
 										className="btn btn-warning p-2 bd-highlight"
 										onClick={e => {
 											reproducir(item.url);
+											setPlaylist(item.url);
+											setSetId(item.id);
 										}}>
 										{item.name} -
 									</button>
@@ -83,7 +105,10 @@ const Home = () => {
 					)}
 				</div>
 				<footer className="fixed-bottom">
-					<button className="text-warning" id="previous">
+					<button
+						className="text-warning"
+						id="previous"
+						onClick={() => prev(setId, song[setId - 1])}>
 						<i className="fas fa-caret-square-left"></i>
 					</button>
 					{condicion ? (
@@ -98,7 +123,9 @@ const Home = () => {
 							<i className="fas fa-play"></i>
 						</button>
 					)}
-					<button className="text-warning">
+					<button
+						className="text-warning"
+						onClick={() => next(setId, song[setId + 1])}>
 						<i className="fas fa-caret-square-right"></i>
 					</button>
 				</footer>
